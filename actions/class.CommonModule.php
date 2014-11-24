@@ -22,6 +22,7 @@
 
 use oat\tao\helpers\Template;
 use oat\tao\model\routing\FlowController;
+use oat\tao\helpers\ControllerHelper;
 
 /**
  * Top level controller
@@ -152,14 +153,32 @@ abstract class tao_actions_CommonModule extends Module
      * @return string the URL
      */
     protected function getClientConfigUrl($extraParameters = array()){
+        
         $context = Context::getInstance();
+        $extension = $context->getExtensionName();
+       
         $clientConfigParams = array(
-            'extension'         => $context->getExtensionName(),
+            'extension'         => $extension,
             'module'            => $context->getModuleName(),
             'action'            => $context->getActionName()
         );
         
-        return _url('config', 'ClientConfig', 'tao', array_merge($clientConfigParams, $extraParameters));
+        //default ClientConfig to the tao global config
+        $clientConfigExtension = 'tao';
+         
+        if($extension !== 'tao'){
+            //check if extension specific controller exists:
+            $controllers = ControllerHelper::getControllers($extension);
+            common_Logger::d(' $controllers '.print_r($controllers, true));
+            foreach($controllers as $controller){
+                if(strpos($controller, 'ClientConfig') && is_subclass_of($controller, 'tao_actions_ClientConfig')){
+                    $clientConfigExtension = $extension;
+                    break;
+                }
+            }
+        }
+        
+        return _url('config', 'ClientConfig', $clientConfigExtension, array_merge($clientConfigParams, $extraParameters));
     }
 
 

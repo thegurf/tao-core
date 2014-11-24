@@ -32,6 +32,11 @@ class tao_actions_ClientConfig extends tao_actions_CommonModule {
      */
     public function config() {
         $this->setContentHeader('application/javascript');
+        $this->setConfigData();
+        $this->setConfigTemplate();
+    }
+    
+    private function setConfigData(){
         
         //get extension paths to set up aliases dynamically
         $extensionsAliases = array();
@@ -75,7 +80,43 @@ class tao_actions_ClientConfig extends tao_actions_CommonModule {
         $this->setData('shownStructure',    $this->getRequestParameter('shownStructure'));
         $this->setData('client_timeout',    $this->getClientTimeout());
         
+        //extension specific data:
+        $this->setData('additional_config', $this->getAdditionalConfig());
+        $this->setData('additional_paths', $this->getAdditionalPaths());
+        $this->setData('additional_shim', array());
+    }
+    
+    /**
+     * Define additional paths configuration as associative array for client config
+     * e.g. array('myLibPath' => 'the/path/to/the/lib.js');
+     * 
+     * @return array
+     */
+    protected function getAdditionalPaths(){
+        return array();
+    }
+
+    /**
+     * Define additonal config data as associative array for client config
+     * e.g. array('myLibPath' => array('param1' => true, 'param2' => 5))
+     * 
+     * @return array
+     */
+    protected function getAdditionalConfig(){
+        return array();
+    }
+    
+    /**
+     * Define additonal shim as associative array for client config
+     * e.g. array('myLibPath' => array('ckeditor', 'jquery')
+     * 
+     * @return array
+     */
+    protected function getAdditionalShim(){
+        return array();
+    }
+    
+    private function setConfigTemplate(){
         $this->setView('client_config.tpl');
     }
 }
-?>

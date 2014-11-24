@@ -5,6 +5,9 @@ require.config({
     waitSeconds: <?=get_data('client_timeout')?>,
     
     config : {
+    <?php foreach (get_data('additional_config') as $name => $config) :?>
+        '<?=$name?>'        : <?=json_encode($config)?>,
+    <?php endforeach?>
         'context': {
             root_url                : '<?=ROOT_URL?>',
             base_url                : '<?=BASE_URL?>',
@@ -58,6 +61,9 @@ require.config({
         <?php if(tao_helpers_Mode::is('production')):?>
         '<?=$name?>/controller/routes' : '<?=$path?>/controllers.min',
         <?php endif?>
+    <?php endforeach?>
+    <?php foreach (get_data('additional_paths') as $name => $path) :?>
+        '<?=$name?>'        : '<?=$path?>',
     <?php endforeach?>
         'mediaElement'      : 'lib/mediaelement/mediaelement-and-player.min',
         'mathJax'           : [
@@ -118,6 +124,9 @@ require.config({
                 }
             }
         },
+    <?php foreach (get_data('additional_shim') as $name => $shim) :?>
+        '<?=$name?>'            : <?=json_encode($shim)?>,
+    <?php endforeach?>
         'filereader' : ['jquery', 'polyfill/swfobject']
     }
 });
