@@ -120,9 +120,9 @@ class tao_actions_form_Instance
 			if($widget == null || $widget instanceof core_kernel_classes_Literal) {
 				continue;
 			}
-			else if ($widget instanceof core_kernel_classes_Resource &&	$widget->getUri() == WIDGET_TREEVIEW){
-			    continue;
-			}
+// 			else if (false && $widget instanceof core_kernel_classes_Resource &&	$widget->getUri() == WIDGET_TREEVIEW){
+// 			    continue;
+// 			}
 			
 			//map properties widgets to form elments 
 			$element = tao_helpers_form_GenerisFormFactory::elementMap($property);
