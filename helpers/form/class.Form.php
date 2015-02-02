@@ -728,16 +728,19 @@ abstract class tao_helpers_form_Form
 
 
 		foreach($this->elements as $element){
-			if(!empty($groupName)){
-				if(isset($this->groups[$groupName])){
-					if(!in_array($element->getName(), $this->groups[$groupName]['elements'])){
-						continue;
-					}
-				}
-			}
-			$returnValue[$element->getName()] = $element->getValue();
+		    if(empty($groupName)
+        		    || !isset($this->groups[$groupName])
+        		    || in_array($element->getName(), $this->groups[$groupName]['elements'])) {
+		        
+                $returnValue[$element->getName()] = $element->getEvaluatedValue();
+		        
+		    }
 		}
 
+		// Some predicates must be excluded.
+		// e.g. 'tao.forms.instance' which is only a tag to identify
+		// forms dedicated to RDF Resources edition.
+		unset($returnValue['tao.forms.instance']);
 
 
         return (array) $returnValue;

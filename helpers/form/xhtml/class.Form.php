@@ -48,17 +48,10 @@ class tao_helpers_form_xhtml_Form
     public function getValues($groupName = '')
     {
         $returnValue = array();
-
-        
-		foreach($this->elements as $element){
-			if(empty($groupName)
-					|| !isset($this->groups[$groupName])
-					|| in_array($element->getName(), $this->groups[$groupName]['elements'])) {
-				
-				$returnValue[tao_helpers_Uri::decode($element->getName())] = $element->getEvaluatedValue();
-			}
-		}
-		unset($returnValue['uri']);
+        foreach (parent::getValues($groupName) as $key => $value) {
+            $returnValue[tao_helpers_Uri::decode($key)] = $value;
+        }
+        unset($returnValue['uri']);
 		unset($returnValue['classUri']);
         
 

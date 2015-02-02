@@ -70,10 +70,9 @@ class tao_models_classes_dataBinding_GenerisFormDataBinder
         	
         	// Take care of what the generic data binding did not.
 			foreach ($data as $p => $d){
-				$property = new core_kernel_classes_Property($p);
-				
 				if ($d instanceof tao_helpers_form_data_UploadFileDescription){
-					$this->bindUploadFileDescription($property, $d);
+				    $property = new core_kernel_classes_Property($p);
+				    $this->bindUploadFileDescription($property, $d);
 				}
 			}
         	
