@@ -22,6 +22,7 @@
 namespace oat\tao\test\helpers;
 
 use oat\tao\test\TaoPhpUnitTestRunner;
+use tao_helpers_Numeric;
 
 class NumericHelperTestCase extends TaoPhpUnitTestRunner
 {

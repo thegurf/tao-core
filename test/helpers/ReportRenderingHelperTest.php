@@ -21,6 +21,8 @@
 namespace oat\tao\test\helpers;
 
 use oat\tao\test\TaoPhpUnitTestRunner;
+use common_report_Report;
+use tao_helpers_report_Rendering;
 
 class ReportRenderingHelperTest extends TaoPhpUnitTestRunner
 {

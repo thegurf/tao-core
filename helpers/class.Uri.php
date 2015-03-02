@@ -199,14 +199,11 @@ class tao_helpers_Uri
      * @param  string url
      * @param  array params
      * @return string
+     * @deprecated
      */
     public static function legacyUrl($url, $params = array())
     {
         $returnValue = (string) '';
-
-        
-        
-
         return (string) $returnValue;
     }
 
